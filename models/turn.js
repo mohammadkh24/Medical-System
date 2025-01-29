@@ -30,6 +30,10 @@ const schema = mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
+    timeID: {
+      type: mongoose.Types.ObjectId,
+      ref: "Time",
+    },
     creator: {
       type: mongoose.Types.ObjectId,
       ref: "User",

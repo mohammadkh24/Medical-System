@@ -1,20 +1,26 @@
 const userModel = require("../models/users");
 const turnModel = require("../models/turn");
+const timesModel = require("../models/times");
 const { validationResult } = require("express-validator");
 const { isValidObjectId } = require("mongoose");
 
 exports.getAll = async (req, res) => {
-  const turns = await turnModel.find({}).lean();
+  const turns = await turnModel.find({}).populate("doctorID" , "name")
 
   return res.json(turns);
 };
 
 exports.create = async (req, res) => {
-  const { name, age, phone, email, body, doctorID } = req.body;
+  const { name, age, phone, email, body, doctorID, timeID } = req.body;
 
-  if (!isValidObjectId(doctorID)) {
+  if (
+    !doctorID ||
+    !timeID ||
+    !isValidObjectId(doctorID) ||
+    !isValidObjectId(timeID)
+  ) {
     return res.status(400).json({
-      message: "DoctorID is not valid !!",
+      message: "DoctorID or TimeID is not valid !!",
     });
   }
 
@@ -28,10 +34,17 @@ exports.create = async (req, res) => {
   }
 
   const doctor = await userModel.findOne({ _id: doctorID, role: "DOCTOR" });
+  const times = await timesModel.findOne({ _id: timeID });
 
   if (!doctor) {
     return res.status(404).json({
       message: "Doctor Not Found !!",
+    });
+  }
+
+  if (!times) {
+    return res.status(404).json({
+      message: "Time Not Found !!",
     });
   }
 
@@ -42,6 +55,7 @@ exports.create = async (req, res) => {
     email,
     body,
     doctorID,
+    timeID,
     creator: req.user._id,
     status: "WAITING",
   });

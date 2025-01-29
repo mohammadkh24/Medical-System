@@ -8,6 +8,7 @@ const turnValidator = () => {
     body("email").notEmpty().withMessage("Email can't be empty").isEmail().withMessage("Invalid email address"),
     body("body").notEmpty().withMessage("Body can't be empty"),
     body("doctorID").notEmpty().withMessage("DoctorID can't be empty").isMongoId().withMessage("Invalid DoctorID"),
+    body("timeID").notEmpty().withMessage("TimeID can't be empty").isMongoId().withMessage("Invalid TimeID"),
   ];
 };
 
