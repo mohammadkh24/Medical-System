@@ -17,13 +17,12 @@ To run this project, you need the following:
    First, clone the project from GitHub:
 
    ```bash
-   https://github.com/mohammadkh24/Library-system-API.git
+   https://github.com/mohammadkh24/Medical-System.git
 
 2. **Install dependencies**
 
 Navigate to the project directory and install the dependencies using npm:
 
-    cd library-system-api
     npm install
 
 3. **Configure environment variables**
