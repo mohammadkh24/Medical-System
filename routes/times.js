@@ -3,6 +3,7 @@ const timesController = require("../controllers/times");
 const authMiddleware = require("../middlewares/auth");
 const isDoctorMiddleware = require("../middlewares/isDoctor");
 const { timeValidator } = require("../validators/times");
+const validateMiddleware = require("../middlewares/validate")
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router
   .get(timesController.getAll)
   .post(
     timeValidator(),
+    validateMiddleware,
     authMiddleware,
     isDoctorMiddleware,
     timesController.create

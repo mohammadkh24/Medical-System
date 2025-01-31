@@ -24,15 +24,6 @@ exports.create = async (req, res) => {
     });
   }
 
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    const errors = {};
-    result.errors.forEach((error) => {
-      errors[error.path] = error.msg;
-    });
-    return res.status(400).json({ errors });
-  }
-
   const doctor = await userModel.findOne({ _id: doctorID, role: "DOCTOR" });
   const times = await timesModel.findOne({ _id: timeID });
 

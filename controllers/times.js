@@ -10,18 +10,6 @@ exports.getAll = async (req, res) => {
 exports.create = async (req, res) => {
   const { inLetters, inNumbers } = req.body;
 
-  const result = validationResult(req);
-
-  if (!result.isEmpty) {
-    const obj = {};
-
-    result.errors.forEach((error) => {
-      obj[error.path] = error.msg;
-    });
-
-    return res.status(400).json(obj);
-  }
-
   const createTime = await timesModel.create({
     inLetters,
     inNumbers,
